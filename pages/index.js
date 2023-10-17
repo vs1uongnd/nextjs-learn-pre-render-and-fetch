@@ -17,8 +17,15 @@ function HomePage(props) {
   );
 }
 // Đối với React, thì là Client-side Rendering, khi ta View Page Source lên sẽ chỉ thấy 1 thẻ div rỗng, không tốt cho SEO
-// NextJS là Server-side rendering, tạo ra 2 file html đầy đủ là index.html và 404.html (gọi là pre-rendering) (có thể npm run build để thấy 2 file đó)
-// Tuy nhiên trong trường hợp data thay đổi liên tục, thì ta có thể sử dụng revalidata để làm mới lại trang html đã build đó. Tức là getStaticProps() được gọi lại mỗi 10s
+// Pre-rendering: Next.js sẽ tạo trước HTML cho từng trang, thay vì tất cả được thực hiện ở client như Reactjs.
+// NextJS mac dinh tạo ra 2 file html đầy đủ là index.html và 404.html (gọi là pre-rendering) (có thể npm run build để thấy 2 file đó)
+// Có 2 loại Pre-rendering: Static generation và Server-side rendering
+
+// Static generation: HTML sẽ được generate tất cả ngay từ đầu và được sử dụng mỗi lần request.
+// Server-side rendering: HTML sẽ được generate mỗi lần request.
+
+// Static generation
+// Tuy nhiên trong trường hợp data thay đổi liên tục, thì ta có thể sử dụng revalidate để làm mới lại trang html đã build đó. Tức là getStaticProps() được gọi lại mỗi 10s
 export async function getStaticProps(context) {
   const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
   const jsonData = await fs.readFile(filePath);
